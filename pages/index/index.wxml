@@ -1,4 +1,35 @@
 <!--index.wxml-->
-<view class="container">
-  
-</view>
+<scroll-view class="container " bindscroll="scroll">
+    <view class='swiper-container'>
+        <swiper bindchange="swiperchange">
+            <block wx:for='{{images}}' wx:key='*this'>
+                <swiper-item class='{{item}}'></swiper-item>
+            </block>
+        </swiper>
+        <view class="dots">
+            <block wx:for='{{images}}' wx:key='unique'>
+                <view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
+            </block>
+        </view>
+    </view>
+
+    <view class='type-container'>
+        <scroll-view scroll-x="true" class="type-navbar" bindscroll="scroll">
+            <block class='' wx:for-items="{{categories}}" wx:key='{{item.id}}'>
+                <view id='{{item.id}}' bindtap='tabClick' class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}">
+                    {{item.name}}
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+
+    <view class="goods-container">
+        <view class='goods-box' wx:for-items="{{goods}}" wx:key="{{index}}">
+            <view class='img-box'>
+                <image src="{{item.pic}}" class="image" />
+            </view>
+            <view class="goods-title">{{item.name}}</view>
+            <view class="goods-price">¥ {{item.minPrice}}</view>
+        </view>
+    </view>
+</scroll-view>
